@@ -12,7 +12,8 @@ dashboardPage(
       uiOutput("sel_Sector"),
       uiOutput("sel_Unit"),
       
-      menuItem("Facetted Plot", tabName = "facet"),
+      menuItem("Faceted Plot", tabName = "facet"),
+      menuItem("Table", tabName = "table"),
 
       menuItem("", icon = icon("twitter-square"),
                href = "https://twitter.com/pssGuy"),
@@ -32,7 +33,17 @@ dashboardPage(
                   
                 )
               )
-    ))
+    )),
+    tabItem("table",
+            fluidRow(column(width=10,offset=1,
+                            box(
+                              width=12,status = "info", solidHeader = FALSE,
+                              
+                              DT::dataTableOutput("table")
+                              
+                            )
+            )
+            ))
       
               
     ) # tabItems

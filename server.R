@@ -71,6 +71,18 @@ shinyServer(function(input, output,session) {
     
     
   })
+  
+  ## datatable
+  
+  output$table <- DT::renderDataTable({
+    print("enter table")
+    if(is.null(input$item)) return()
+    print(glimpse(info()$df))
+    
+   info()$df %>% 
+    DT::datatable()
+  })
+  
  
 })
 

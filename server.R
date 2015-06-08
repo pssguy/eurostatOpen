@@ -29,9 +29,10 @@ shinyServer(function(input, output,session) {
   ## faceted ggplot 
   
   output$gg <- renderPlot({
-    
-    print("enter plot")
-    print(input$item)
+   
+    # await selection - rob better way
+    if(is.null(input$item)) return()
+   
     theSelection <- input$item
     theUnit <- input$unit
     theSector <- input$sector

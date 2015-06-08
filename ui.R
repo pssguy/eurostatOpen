@@ -8,6 +8,10 @@ dashboardPage(
     
     
     sidebarMenu(
+      uiOutput("sel_Item"),
+      uiOutput("sel_Sector"),
+      uiOutput("sel_Unit"),
+      
       menuItem("Summary", tabName = "summary"),
 
       menuItem("", icon = icon("twitter-square"),
@@ -20,15 +24,15 @@ dashboardPage(
   dashboardBody(
     tabItems(
       tabItem("summary",
-              fluidRow(
-                box(
-                  width = 4, status = "info", solidHeader = TRUE,
-                  title = "selection",
-                  uiOutput("sel_Unit"),
-                  uiOutput("sel_Sector"),
-                  uiOutput("sel_Item")
-                  
-                ),
+#               fluidRow(
+#                 box(
+#                   width = 4, status = "info", solidHeader = TRUE,
+#                   title = "selection",
+#                   uiOutput("sel_Unit"),
+#                   uiOutput("sel_Sector"),
+#                   uiOutput("sel_Item")
+#                   
+#                 ),
                 box(
                   width = 8, status = "info", solidHeader = TRUE,
                   title = "results",
@@ -37,7 +41,7 @@ dashboardPage(
                 )
               )
               
-      )
+      
               
     ) # tabItems
   ) # body

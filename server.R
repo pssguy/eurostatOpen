@@ -26,13 +26,9 @@ shinyServer(function(input, output,session) {
     selectInput("item","item",itemOptions)
   })
  
-  ## faceted ggplot 
+   
   
-  output$gg <- renderPlot({
-   
-    # await selection - rob better way
-    if(is.null(input$item)) return()
-   
+  info <- reactive({
     theSelection <- input$item
     theUnit <- input$unit
     theSector <- input$sector
@@ -41,7 +37,25 @@ shinyServer(function(input, output,session) {
       filter(na_item==theSelection&unit==theUnit&sector==theSector) #680 values
     print(glimpse(df))
     
-     df %>% 
+    info=list(df=df,theSelection=theSelection,theUnit=theUnit,theSector=theSector)
+    return(info)
+  })
+  
+  ## faceted ggplot
+  output$gg <- renderPlot({
+   
+    # await selection - rob better way
+    if(is.null(input$item)) return()
+   
+    theSelection <- info()$theSelection
+    theUnit <- info()$theUnit
+    theSector <- info()$theSector
+    
+#     df <- data %>% 
+#       filter(na_item==theSelection&unit==theUnit&sector==theSector) #680 values
+#     print(glimpse(df))
+    
+     info()$df %>% 
       filter(geo %in% countries$country)    %>%
       ggplot(.,aes(x=time,y=values)) + 
       geom_line()+

@@ -7,6 +7,8 @@ library(ggplot2)
 library(scales)
 library(shiny)
 library(shinydashboard)
+library(leaflet)
+library(stringr)
 
 # restricted countries
 countries <- read_csv("euCountries.csv")

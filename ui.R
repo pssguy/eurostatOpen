@@ -13,6 +13,7 @@ dashboardPage(
       uiOutput("sel_Unit"),
       
       menuItem("Faceted Plot", tabName = "facet"),
+      menuItem("Map", tabName = "map"),
       menuItem("Table", tabName = "table"),
 
       menuItem("", icon = icon("twitter-square"),
@@ -34,6 +35,15 @@ dashboardPage(
                 )
               )
     )),
+    tabItem("map",
+            fluidRow(column(width=10,offset=1,
+                            box(
+                              width=12,status = "info", solidHeader = FALSE,
+                              leafletOutput("map")
+                              
+                            )
+            )
+            )),
     tabItem("table",
             fluidRow(column(width=10,offset=1,
                             box(

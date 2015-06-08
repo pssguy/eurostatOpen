@@ -26,13 +26,13 @@ dashboardPage(
                   title = "selection",
                   uiOutput("sel_Unit"),
                   uiOutput("sel_Sector"),
-                  uiOutput("sel_Item"),
-                  submitButton()
+                  uiOutput("sel_Item")
                   
                 ),
                 box(
                   width = 8, status = "info", solidHeader = TRUE,
-                  title = "results"
+                  title = "results",
+                  plotOutput("gg")
                   
                 )
               )

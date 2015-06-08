@@ -1,13 +1,15 @@
 
 shinyServer(function(input, output,session) {
   
+  # hard code initially
   data <- label_eurostat_vars(get_eurostat("gov_10dd_edpt1"))
   
   data$unit <- as.character(data$unit)
   data$sector <- as.character(data$sector)
   data$na_item <- as.character(data$na_item)
-  print(glimpse(data))
+ # print(glimpse(data))
   
+  # create selection options
   output$sel_Unit <- renderUI({
     unitOptions <- sort(unique(data$unit))
     
@@ -24,6 +26,36 @@ shinyServer(function(input, output,session) {
     selectInput("item","item",itemOptions)
   })
  
+  ## faceted ggplot 
+  
+  output$gg <- renderPlot({
+    
+    print("enter plot")
+    print(input$item)
+    theSelection <- input$item
+    theUnit <- input$unit
+    theSector <- input$sector
+    
+    df <- data %>% 
+      filter(na_item==theSelection&unit==theUnit&sector==theSector) #680 values
+    print(glimpse(df))
+    
+     df %>% 
+      filter(geo %in% countries$country)    %>%
+      ggplot(.,aes(x=time,y=values)) + 
+      geom_line()+
+      ylab(theUnit)+
+      facet_wrap(~geo,nrow=4) +
+      ggtitle(theSelection) +
+      xlab('Year') +
+    #  geom_hline(yintercept=60,colour='red') + #only useful if no selection
+      scale_x_date(
+        breaks=c(as.Date("2000-01-01"),as.Date("2010-01-01") )
+        ,labels = date_format("%Y"))
+    
+    
+    
+  })
  
 })
 
